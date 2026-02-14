@@ -10,8 +10,13 @@ st.set_page_config(page_title="Restoration Tender", layout="wide")
 
 st.title("Restoration Tender")
 
-# Default data path (project root, one level up from pages/)
-DEFAULT_DATA_PATH = Path(__file__).parent.parent / "restoration tender.csv"
+# Default data path (project root). Try both casings for local vs Streamlit Cloud (Linux is case-sensitive)
+_root = Path(__file__).parent.parent
+DEFAULT_DATA_PATHS = [
+    _root / "restoration tender.csv",
+    _root / "Restoration Tender.csv",
+]
+DEFAULT_DATA_PATH = next((p for p in DEFAULT_DATA_PATHS if p.exists()), DEFAULT_DATA_PATHS[0])
 
 # File upload or use default
 st.sidebar.header("Data source")
@@ -28,7 +33,10 @@ if use_upload:
         df = pd.read_excel(uploaded)
 else:
     if not DEFAULT_DATA_PATH.exists():
-        st.error(f"Default file not found: {DEFAULT_DATA_PATH}. Upload a file or place data there.")
+        st.error(
+            f"Default file not found. Looked for: 'restoration tender.csv' or 'Restoration Tender.csv' in the app folder. "
+            "Upload a file using the sidebar or add the CSV to your repo."
+        )
         st.stop()
     df = pd.read_csv(DEFAULT_DATA_PATH)
 
