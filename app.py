@@ -9,5 +9,6 @@ st.title("Data Analysis")
 
 st.markdown("Choose a data file to view and analyse.")
 
-# Link to the restoration tender data page
+# Links to data file pages
 st.page_link("pages/1_restoration_tender.py", label="Restoration Tender", icon="📄")
+st.page_link("pages/2_ku_estimate_details.py", label="KU Estimate Details", icon="📄")
