@@ -69,3 +69,15 @@ The app opens in your browser (typically http://localhost:8501).
 - streamlit >= 1.28.0
 - pandas >= 2.0.0
 - openpyxl >= 3.1.0 (for Excel uploads)
+
+## Deploy on Render
+
+1. Push this repo to GitHub (e.g. [SeetharamanM/Highways-Data-Analysis](https://github.com/SeetharamanM/Highways-Data-Analysis)).
+2. Go to [render.com](https://render.com) and sign in (or sign up).
+3. Click **New +** → **Web Service**.
+4. Connect your GitHub account and select the repo `Highways-Data-Analysis`.
+5. Render will use the `render.yaml` in the repo. Confirm:
+   - **Build command:** `pip install -r requirements.txt`
+   - **Start command:** `streamlit run app.py --server.port=$PORT --server.address=0.0.0.0`
+6. Choose a **Free** instance and click **Create Web Service**.
+7. After the build finishes, your app will be at `https://<your-service-name>.onrender.com`.
