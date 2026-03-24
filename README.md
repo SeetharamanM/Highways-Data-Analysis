@@ -4,14 +4,37 @@ A Streamlit app for viewing and analysing highways restoration tender data—fil
 
 ## Features
 
-- **Landing page** with links to each data file
-- **Restoration Tender** page:
-  - Load default file (`restoration tender.csv`) or upload CSV/Excel
+- **Landing page** with links to each analysis page
+- **Restoration Tender** (`pages/1_restoration_tender.py`):
+  - Load default file (`restoration tender.csv` / `Restoration Tender.csv`) or upload CSV/Excel
   - **Filters** by TN No, Name of Road, Contractor, AS (L), CV (L)
   - **Overall totals**: coloured tiles for total AS (L) and CV (L)
-  - **By TN No**: coloured tiles for total AS and CV (L) per TN No
+  - **By TN No**: coloured tiles for total AS (L) and CV (L) per TN No
   - **By contractor**: sum of AS (L) and CV (L) per contractor
   - **Filtered data** table
+- **KU Estimate Details** (`pages/2_ku_estimate_details.py`):
+  - Reads `KU_Estimate Details.csv` (row 1 = title, row 2 = header)
+  - **Filter** by `Items`
+  - Coloured tiles for:
+    - **Total Amt (filtered)**
+    - **% of Total** (optionally excluding `Lumpsum` via a checkbox)
+  - Filtered data table
+- **CRIDP 2026-27 Proposal** (`pages/3_cridp_2026_27_proposal.py`):
+  - Reads `CRIDP 2026-27 Proposal.xlsx` (first row as header)
+  - **Filters** by `Category`, `Road`, `Work Type`
+  - Coloured tiles for:
+    - **Total Length in KM (filtered)**
+    - **Total Cost in Lakhs (filtered)**
+  - Grouped tiles: totals of Length and Cost by `Category` & `Work Type` (filtered)
+  - Filtered data table
+- **SH Junction Details** (`pages/4_sh_junction_details.py`):
+  - Reads `SH Junction Details.xlsx` (first row as header)
+  - **Filters** by `Main Road`, `Branch Road`, `Type of Junction`
+  - Detects the junction count column (e.g. `No of Junctions`) automatically
+  - Coloured tiles for:
+    - **No of Junctions (filtered)**
+    - **No of Junctions (all items)**
+  - Filtered data table
 
 ## Setup
 
@@ -54,12 +77,18 @@ The app opens in your browser (typically http://localhost:8501).
 ## Project structure
 
 ```
-├── app.py                 # Landing page
+├── app.py                            # Landing page
 ├── pages/
-│   └── 1_restoration_tender.py   # Restoration Tender data page
+│   ├── 1_restoration_tender.py       # Restoration Tender data page
+│   ├── 2_ku_estimate_details.py      # KU Estimate Details page
+│   ├── 3_cridp_2026_27_proposal.py   # CRIDP 2026-27 Proposal page
+│   └── 4_sh_junction_details.py      # SH Junction Details page
 ├── requirements.txt
-├── run_app.ps1            # Run script (Windows)
-├── restoration tender.csv # Default data file (optional)
+├── run_app.ps1                       # Run script (Windows)
+├── restoration tender.csv            # Default data file (optional)
+├── KU_Estimate Details.csv           # Default KU estimate data (optional)
+├── CRIDP 2026-27 Proposal.xlsx       # Default CRIDP data (optional)
+├── SH Junction Details.xlsx          # Default SH junction data (optional)
 └── README.md
 ```
 
