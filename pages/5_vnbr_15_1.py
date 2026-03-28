@@ -4,15 +4,21 @@ VNBR 15-1 Data Analysis page with summary tabs and filters.
 import streamlit as st
 import pandas as pd
 import numpy as np
+from pathlib import Path
 
 st.set_page_config(page_title="VNBR 15-1 Data", layout="wide")
 
 st.title("VNBR 15-1 Land Acquisition Data")
 
+# Get the directory of the current script
+SCRIPT_DIR = Path(__file__).parent.parent
+
 # Load and clean data
 @st.cache_data
 def load_data():
-    df = pd.read_excel("vnbr 15-1.xlsx")
+    # Use absolute path relative to script location
+    file_path = SCRIPT_DIR / "vnbr 15-1.xlsx"
+    df = pd.read_excel(file_path)
     
     # Clean the data - handle missing values and convert to numeric
     df['Extent to be acquired (in Sqm)'] = pd.to_numeric(df['Extent to be acquired (in Sqm)'], errors='coerce')
