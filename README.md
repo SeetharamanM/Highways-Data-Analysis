@@ -39,12 +39,14 @@ A Streamlit app for viewing and analysing highways restoration tender data—fil
 ## Setup
 
 1. Clone the repository:
+
    ```bash
    git clone https://github.com/SeetharamanM/Highways-Data-Analysis.git
    cd Highways-Data-Analysis
    ```
 
 2. Create and activate a virtual environment (optional but recommended):
+
    ```bash
    python -m venv streamlit
    # Windows PowerShell:
@@ -56,6 +58,7 @@ A Streamlit app for viewing and analysing highways restoration tender data—fil
    ```
 
 3. Install dependencies:
+
    ```bash
    pip install -r requirements.txt
    ```
@@ -72,11 +75,11 @@ Or on Windows with the helper script (after activating the env):
 .\run_app.ps1
 ```
 
-The app opens in your browser (typically http://localhost:8501).
+The app opens in your browser (typically <http://localhost:8501>).
 
 ## Project structure
 
-```
+```text
 ├── app.py                            # Landing page
 ├── pages/
 │   ├── 1_restoration_tender.py       # Restoration Tender data page
