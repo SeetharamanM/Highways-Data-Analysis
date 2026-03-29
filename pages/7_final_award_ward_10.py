@@ -12,6 +12,24 @@ st.title("Final Award Table - Ward 10")
 # Get the directory of the current script
 SCRIPT_DIR = Path(__file__).parent.parent
 
+
+def format_indian_amount(amount):
+    """Format amount with Indian style comma separators (e.g., 1,50,000)"""
+    s = str(int(amount))
+    if len(s) <= 3:
+        return f"₹ {s}"
+    else:
+        # Last 3 digits
+        last_three = s[-3:]
+        # Remaining digits
+        remaining = s[:-3]
+        # Add commas every 2 digits for remaining
+        if remaining:
+            remaining = ','.join([remaining[max(0, i-2):i] for i in range(len(remaining), 0, -2)][::-1])
+            return f"₹ {remaining},{last_three}"
+        return f"₹ {last_three}"
+
+
 # Load data
 @st.cache_data
 def load_data():
@@ -32,6 +50,7 @@ def load_data():
     df['Land Owners'] = df['Land Owners'].fillna('').astype(str)
     
     return df
+
 
 df = load_data()
 
@@ -89,20 +108,20 @@ with col1:
 
 with col2:
     st.metric(
-        label="**Total Compensation Amount**",
-        value=f"₹ {total_compensation:,.2f}"
+        label="**Total Compensation**",
+        value=format_indian_amount(total_compensation)
     )
 
 with col3:
     st.metric(
-        label="**Total Structure Amount**",
-        value=f"₹ {total_structure:,.2f}"
+        label="**Total Structures**",
+        value=format_indian_amount(total_structure)
     )
 
 with col4:
     st.metric(
-        label="**Total Tree Valuation**",
-        value=f"₹ {total_tree:,.2f}"
+        label="**Total Tree Value**",
+        value=format_indian_amount(total_tree)
     )
 
 # Detailed Data Table
