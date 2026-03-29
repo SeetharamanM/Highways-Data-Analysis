@@ -16,6 +16,12 @@ SCRIPT_DIR = Path(__file__).parent.parent
 @st.cache_data
 def load_data():
     file_path = SCRIPT_DIR / "SH-154 Accident spot AS.xlsx"
+    
+    # Read reference from first row
+    df_header = pd.read_excel(file_path, header=None, nrows=1)
+    reference_text = str(df_header.iloc[0, 1]) if not df_header.empty else ""
+    
+    # Read actual data from row 2 onwards
     df = pd.read_excel(file_path, header=1)
     
     # Clean data - remove empty rows and total row
@@ -25,9 +31,13 @@ def load_data():
     # Convert SI.No to integer
     df['SI.No'] = df['SI.No'].astype(int)
     
-    return df
+    return df, reference_text
 
-df = load_data()
+df, reference_text = load_data()
+
+# Display reference information
+if reference_text and reference_text != 'nan':
+    st.info(f"**Reference:** {reference_text}")
 
 # Summary Cards
 st.subheader("Estimate Summary")
